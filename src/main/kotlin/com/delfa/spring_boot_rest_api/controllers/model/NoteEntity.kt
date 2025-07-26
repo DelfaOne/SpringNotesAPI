@@ -9,7 +9,7 @@ data class NoteRequest(
     val title: String,
     val content: String,
     val color: Long,
-    val ownerId: String
+    val ownerId: String? = null
 )
 
 data class NoteResponse(
@@ -27,6 +27,6 @@ fun NoteRequest.toNote(): Note {
         content = content,
         color = color,
         createdAt = Instant.now(),
-        ownerId = ObjectId(ownerId)
+        ownerId = ownerId?.let { ObjectId(it) } ?: ObjectId.get()
     )
 }
