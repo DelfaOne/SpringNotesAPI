@@ -1,4 +1,4 @@
-package com.delfa.spring_boot_rest_api.controllers.model
+package com.delfa.spring_boot_rest_api.database.model
 
 import org.bson.types.ObjectId
 import org.springframework.data.annotation.Id

@@ -9,12 +9,12 @@ import java.util.*
 
 @Service
 class JwtService(
-    @Value("\${JWT_SECRET_BASE64}") private val jwtSecret: String
+    @Value("\${jwt.secret}") private val jwtSecret: String
 ) {
 
     private val secretKey = Keys.hmacShaKeyFor(Base64.getDecoder().decode(jwtSecret))
 
-    private companion object {
+    companion object {
         const val ACCESS_TOKEN_VALIDITY_MS = 15 * 60 * 1000L       // 15 minutes
         const val REFRESH_TOKEN_VALIDITY_MS = 30L * 24 * 60 * 60 * 1000 // 30 days
     }
