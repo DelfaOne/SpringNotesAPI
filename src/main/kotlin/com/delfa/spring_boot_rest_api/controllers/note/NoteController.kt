@@ -3,6 +3,7 @@ package com.delfa.spring_boot_rest_api.controllers.note
 import com.delfa.spring_boot_rest_api.controllers.note.model.NoteRequest
 import com.delfa.spring_boot_rest_api.controllers.note.model.NoteResponse
 import com.delfa.spring_boot_rest_api.database.repository.NoteRepository
+import jakarta.validation.Valid
 import org.bson.types.ObjectId
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.web.bind.annotation.*
@@ -19,7 +20,7 @@ class NoteController(
 
     @PostMapping
     fun save(
-        @RequestBody body: NoteRequest
+        @Valid @RequestBody body: NoteRequest
     ): NoteResponse {
         val ownerId = SecurityContextHolder.getContext().authentication.principal as String
         return noteRepository.save(

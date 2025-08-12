@@ -3,6 +3,7 @@ package com.delfa.spring_boot_rest_api.controllers.auth
 import com.delfa.spring_boot_rest_api.controllers.auth.model.AuthRequest
 import com.delfa.spring_boot_rest_api.controllers.auth.model.RefreshRequest
 import com.delfa.spring_boot_rest_api.security.AuthService
+import jakarta.validation.Valid
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
@@ -15,7 +16,7 @@ class AuthController(
 ) {
     @PostMapping("/register")
     fun register(
-        @RequestBody body: AuthRequest
+        @Valid @RequestBody body: AuthRequest
     ) = authService.register(body.email, body.password)
 
     @PostMapping("/login")

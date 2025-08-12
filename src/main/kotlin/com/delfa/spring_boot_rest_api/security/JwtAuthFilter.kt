@@ -20,21 +20,13 @@ class JwtAuthFilter(
     ) {
         //Get http header => Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6...
         val authHeader = request.getHeader("Authorization")
-
-        try {
-            if (!authHeader.isNullOrBlank() && authHeader.startsWith("Bearer ")) {
-                if (jwtService.validateAccessToken(authHeader)) {
-                    val userId = jwtService.getUserIdFromToken(authHeader)
-                    val auth = UsernamePasswordAuthenticationToken(userId, null, emptyList())
-                    SecurityContextHolder.getContext().authentication = auth
-                }
+        if (!authHeader.isNullOrBlank() && authHeader.startsWith("Bearer ")) {
+            if (jwtService.validateAccessToken(authHeader)) {
+                val userId = jwtService.getUserIdFromToken(authHeader)
+                val auth = UsernamePasswordAuthenticationToken(userId, null, emptyList())
+                SecurityContextHolder.getContext().authentication = auth
             }
-            filterChain.doFilter(request, response)
-
-        } catch (e: Exception) {
-            response.status = HttpServletResponse.SC_UNAUTHORIZED
-            response.contentType = "application/json"
-            response.writer.write("""{"error": "Unauthorized", "message": "${e.message}"}""")
         }
+        filterChain.doFilter(request, response)
     }
 }

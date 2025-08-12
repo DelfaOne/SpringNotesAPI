@@ -1,11 +1,13 @@
 package com.delfa.spring_boot_rest_api.controllers.note.model
 
 import com.delfa.spring_boot_rest_api.database.model.Note
+import jakarta.validation.constraints.NotBlank
 import org.bson.types.ObjectId
 import java.time.Instant
 
 data class NoteRequest(
     val id: String?,
+    @field:NotBlank(message = "Title cannot be blank")
     val title: String,
     val content: String,
     val color: Long,
